@@ -37,4 +37,33 @@ describe('replaceWithEnvVar', () => {
     const expected = {a: {b: {c: '5050'}}}
     assert.deepEqual(actual, expected)
   })
+
+  it('should trim the string', () => {
+    const process = {
+      env: {
+        PORT: '5050\n'
+      }
+    }
+    const baseConfig = {
+      a: 'a',
+      b: '@@PORT'
+    }
+    const actual = replaceWithEnvVar(baseConfig, process)
+    const expected = {...baseConfig, b: '5050'}
+    assert.deepEqual(actual, expected)
+  })
+
+  it('should throw an exception if env variable is not set', () => {
+    const process = {
+      env: {}
+    }
+    const baseConfig = {
+      a: 'a',
+      b: '@@PORT'
+    }
+    assert.throws(() => replaceWithEnvVar(baseConfig, process), {
+      name: 'Error',
+      message: 'Environment variable "PORT" is not set'
+    })
+  })
 })

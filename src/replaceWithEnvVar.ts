@@ -12,6 +12,22 @@ type NodeENV = {
     [key: string]: string
   }
 }
+
+function extractEnvVar<P extends NodeENV>(process: P, name: any): string {
+  let envName = getVarName(name)
+  let envVariable = process.env[envName]
+  if (!envVariable) {
+    throw Error(`Environment variable "${envName}" is not set`)
+  }
+  if (typeof envVariable === 'string') {
+    envVariable = envVariable.trim()
+    if (!envVariable) {
+      throw Error(`Environment variable "${envName}" can not be empty`)
+    }
+  }
+  return envVariable
+}
+
 export const replaceWithEnvVar = <T, P extends NodeENV>(
   baseConfig: T,
   process: P
@@ -19,7 +35,7 @@ export const replaceWithEnvVar = <T, P extends NodeENV>(
   const itar: any = R.map((value: any) => {
     if (R.is(Object, value)) return itar(value)
     if (R.is(String, value) && hasEnvVar(value))
-      return process.env[getVarName(value)]
+      return extractEnvVar(process, value)
     return value
   })
   return itar(baseConfig)

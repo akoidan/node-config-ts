@@ -121,5 +121,50 @@ describe('mergeAllConfigs()', () => {
       }
       assert.deepEqual(actual, expected)
     })
+
+    it('should not throw exception if @@ENV is in default.json but string in other', () => {
+      const process = {
+        argv: [],
+        cwd: () => path.resolve(__dirname, 'stub-module'),
+        env: {
+          NODE_CONFIG_TS_ENV: 'redefinedenv'
+        }
+      }
+      const actual = mergeAllConfigs(process)
+      const expected = {
+        maxRetries: 3,
+        port: 9000,
+        type: 'default'
+      }
+      assert.deepEqual(actual, expected)
+    })
+    it('should throw exception string is rewritten as @@ENV in config', () => {
+      const process = {
+        argv: [],
+        cwd: () => path.resolve(__dirname, 'stub-module'),
+        env: {
+          NODE_CONFIG_TS_ENV: 'rewritten'
+        }
+      }
+      assert.throws(() => mergeAllConfigs(process), {
+        message: 'Environment variable "PORT" is not set'
+      })
+    })
+    it('should clear "\\n" from env variables', () => {
+      const process = {
+        argv: [],
+        cwd: () => path.resolve(__dirname, 'stub-module'),
+        env: {
+          MAX_RETRIES: 'with_new_line\n'
+        }
+      }
+      const actual = mergeAllConfigs(process)
+      const expected = {
+        maxRetries: 'with_new_line',
+        port: 9000,
+        type: 'default'
+      }
+      assert.deepEqual(actual, expected)
+    })
   })
 })
