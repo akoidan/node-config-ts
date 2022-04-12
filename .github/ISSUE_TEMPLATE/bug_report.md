@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help node-config-ts improve
+about: Create a report to help node-ts-config improve
 title: ''
 labels: ''
 assignees: ''
@@ -20,7 +20,7 @@ A clear and concise description of what you expected to happen.
 
 **Typescript Version:**
 
-**node-config-ts version:**
+**node-ts-config version:**
 
 **tsconfig.json**
 ```json

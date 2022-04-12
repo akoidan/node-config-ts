@@ -1,6 +1,6 @@
 {
   "name": "node-ts-config",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "dependencies": {
     "json-to-ts": "^1.6.0",
     "minimist": "^1.2.0",
@@ -13,6 +13,7 @@
   },
   "scripts": {
     "semantic-release": "semantic-release",
+    "build": "tsc",
     "travis-deploy-once": "travis-deploy-once",
     "lint": "tslint --project .",
     "prettier": "git ls-files | grep -E '.*\\.(ts|md|json)$' | xargs prettier --write --config=.prettierrc",
@@ -42,7 +43,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/akoidan/node-config-ts"
+    "url": "https://github.com/akoidan/node-ts-config"
   },
   "license": "MIT"
 }

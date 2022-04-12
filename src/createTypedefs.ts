@@ -15,7 +15,7 @@ const ts = prettier.format(
   [
     '/* tslint:disable */',
     '/* eslint-disable */',
-    'declare module "node-config-ts" {'
+    'declare module "node-ts-config" {'
   ]
     .concat(JsonToTS(config, {rootName: 'IConfig'}))
     .concat([

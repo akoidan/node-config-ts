@@ -3,8 +3,8 @@ import {DefinePlugin, Configuration} from 'webpack'
 import * as R from 'ramda'
 
 const setConfigResolver = R.assocPath<string, Configuration>(
-  ['resolve', 'alias', 'node-config-ts'],
-  'node-config-ts/iso'
+  ['resolve', 'alias', 'node-ts-config'],
+  'node-ts-config/iso'
 )
 const setGlobalConfigPlugin = R.over(
   R.lensProp('plugins'),
