@@ -1,6 +1,6 @@
 {
-  "name": "node-config-ts-2",
-  "version": "1.0.2",
+  "name": "node-ts-config",
+  "version": "1.0.0",
   "dependencies": {
     "json-to-ts": "^1.6.0",
     "minimist": "^1.2.0",
