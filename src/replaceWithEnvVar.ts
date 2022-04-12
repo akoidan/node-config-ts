@@ -16,8 +16,10 @@ type NodeENV = {
 function extractEnvVar<P extends NodeENV>(process: P, name: any): string {
   let envName = getVarName(name)
   let envVariable = process.env[envName]
-  if (!envVariable) {
+  if (!envVariable && process.env.NODE_TS_CONFIG_THROW) {
     throw Error(`Environment variable "${envName}" is not set`)
+  } else {
+    console.warn(`Environment variable "${envName}" is not set`)
   }
   if (typeof envVariable === 'string') {
     envVariable = envVariable.trim()
