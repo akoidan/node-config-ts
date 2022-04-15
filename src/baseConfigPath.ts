@@ -1,7 +1,7 @@
 /**
  * Default config directory
  */
-const DEFAULT_BASE_DIR = 'config'
+const DEFAULT_BASE_DIR = 'src/config'
 
 type NonConfigTSEnv = {
   env: {
