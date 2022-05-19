@@ -13,9 +13,9 @@ type NodeENV = {
   }
 }
 
-function extractEnvVar<P extends NodeENV>(process: P, name: any): string {
+function extractEnvVar<P extends NodeENV>(process: P, name: any): string|number|boolean {
   let envName = getVarName(name)
-  let envVariable = process.env[envName]
+  let envVariable: string|number|boolean = process.env[envName]
   if (!envVariable && process.env.NODE_TS_CONFIG_THROW) {
     throw Error(`Environment variable "${envName}" is not set`)
   } else {
@@ -25,6 +25,14 @@ function extractEnvVar<P extends NodeENV>(process: P, name: any): string {
     envVariable = envVariable.trim()
     if (!envVariable) {
       throw Error(`Environment variable "${envName}" can not be empty`)
+    }
+    if (!isNaN(envVariable as any)) {
+      envVariable = parseFloat(envVariable);
+    }
+    if (envVariable === 'true') {
+      envVariable = true;
+    } else if (envVariable === 'false') {
+      envVariable = false;
     }
   }
   return envVariable
